@@ -1,25 +1,25 @@
 import React from "react";
 import participants from "./Participants";
 
-var top1 = participants.slice(0, 1).map((top) => {
-  console.log(top);
-});
-
-var top2 = participants.slice(1, 2).map((top) => {
-  console.log(top);
-});
-
-var top3 = participants.slice(2, 3).map((top) => {
-  console.log(top);
-});
+var top1 = participants[0];
+var top2 = participants[1];
+var top3 = participants[2];
 
 var top410 = participants.slice(3, 10).map((top) => {
-  console.log(top);
+  return (
+    <div className="bg-white rounded-xl ring-inset ring-2 ring-black p-1 h-full flex items-center justify-center" key={top.id}>
+      <div className="flex item-center justify-center">
+        <h1 className="mr-1 text-3xl font-bold">{top.score}</h1>
+        <h2>cps</h2>
+        <h1 className="ml-3 font-bold text-2xl">{top.name}</h1>
+      </div>
+    </div>
+  );
 });
 
 const Ranking = () => (
   <div className="h-screen max-h-screen grid grid-rows-2 gap-1 my-auto ml-1">
-    <section className="bg-red-200 grid grid-rows-2 gap-1">
+    <section className="grid grid-rows-2 gap-1">
       <div className="bg-yellow-400 rounded-3xl h-full ring-inset ring-2 ring-black p-4">
         <div className="flex max-h-full">
           <div className="bg-green-100 w-1/3">
@@ -31,17 +31,17 @@ const Ranking = () => (
           </div>
           <div className="flex-row w-2/3 items-stretch justify-items-center">
             <div className="h-1/2 mx-1 text-center text-5xl font-serif font-extrabold flex items-center justify-center">
-              J Regi
+              {top1.name}
             </div>
             <div className="h-1/2 mx-1 text-center text-md font-mono flex items-center">
-              <h1 className="text-4xl font-serif font-extrabold w-1/2">100</h1>
+              <h1 className="text-4xl font-serif font-extrabold w-1/2">{top1.score}</h1>
               click per second average
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-orange-200 grid grid-rows-2 gap-1">
+      <div className="grid grid-rows-2 gap-1">
         <div className="bg-slate-400 rounded-3xl h-full ring-inset ring-2 ring-black p-4 ">
           <div className="flex max-h-full">
             <div className="bg-green-100 w-1/3">
@@ -53,11 +53,11 @@ const Ranking = () => (
             </div>
             <div className="flex-row w-2/3 items-stretch justify-items-center">
               <div className="h-1/2 mx-1 text-center text-3xl font-serif font-extrabold flex items-center justify-center">
-                Jasdas Rasdsa
+                {top2.name}
               </div>
               <div className="h-1/2 mx-1 text-left text-xs font-mono flex items-center">
                 <h1 className="text-3xl font-serif font-extrabold w-1/2 text-center m-2">
-                  90
+                  {top2.score}
                 </h1>
                 click per second average
               </div>
@@ -66,7 +66,7 @@ const Ranking = () => (
         </div>
 
         <div className="bg-amber-700 rounded-3xl h-full ring-inset ring-2 ring-black p-4">
-           <div className="flex max-h-full">
+          <div className="flex max-h-full">
             <div className="bg-green-100 w-1/3">
               <img
                 className="h-full w-full ring-4 ring-amber-800"
@@ -76,10 +76,12 @@ const Ranking = () => (
             </div>
             <div className="flex-row w-2/3 items-stretch justify-items-center">
               <div className="h-1/2 mx-1 text-center text-3xl font-serif font-extrabold flex items-center justify-center">
-                Jasdas Rasdsa
+                {top3.name}
               </div>
               <div className="h-1/2 mx-1 text-left text-xs font-mono flex items-center">
-                <h1 className="text-3xl font-serif font-extrabold w-1/2 text-center m-2">90</h1>
+                <h1 className="text-3xl font-serif font-extrabold w-1/2 text-center m-2">
+                  {top3.score}
+                </h1>
                 click per second average
               </div>
             </div>
@@ -88,16 +90,8 @@ const Ranking = () => (
       </div>
     </section>
 
-    <section className="bg-red-200 grid grid-rows-7 gap-1">
-      <div className="bg-white rounded-xl ring-inset ring-2 ring-black p-1 h-full">
-        4
-      </div>
-      <div className="bg-white rounded-xl">5</div>
-      <div className="bg-white rounded-xl">6</div>
-      <div className="bg-white rounded-xl">7</div>
-      <div className="bg-white rounded-xl">8</div>
-      <div className="bg-white rounded-xl">9</div>
-      <div className="bg-white rounded-xl">10</div>
+    <section className="grid grid-rows-7 gap-1">
+      {top410}
     </section>
   </div>
 );

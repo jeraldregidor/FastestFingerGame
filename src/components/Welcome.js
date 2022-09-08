@@ -9,7 +9,7 @@ const navBar = () => {
         <div className="font-extrabold text-[70px] text-center">
           The Fastest
         </div>
-        <div className="text-center text-xl">
+        <div className="text-center text-xl text-slate-600">
           Be on top and prove them no one can beat the lightning speed of your
           FASTEST
         </div>
