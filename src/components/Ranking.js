@@ -10,7 +10,7 @@ var top410 = participants.slice(3, 10).map((top) => {
     <div className="bg-white rounded-xl ring-inset ring-2 ring-black p-1 h-full flex items-center justify-center" key={top.id}>
       <div className="flex item-center justify-center">
         <h1 className="mr-1 text-3xl font-bold">{top.score}</h1>
-        <h2>cps</h2>
+        <h2>clicks</h2>
         <h1 className="ml-3 font-bold text-2xl">{top.name}</h1>
       </div>
     </div>
@@ -35,7 +35,7 @@ const Ranking = () => (
             </div>
             <div className="h-1/2 mx-1 text-center text-md font-mono flex items-center">
               <h1 className="text-4xl font-serif font-extrabold w-1/2">{top1.score}</h1>
-              click per second average
+              clicks
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ const Ranking = () => (
                 <h1 className="text-3xl font-serif font-extrabold w-1/2 text-center m-2">
                   {top2.score}
                 </h1>
-                click per second average
+                clicks
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@ const Ranking = () => (
                 <h1 className="text-3xl font-serif font-extrabold w-1/2 text-center m-2">
                   {top3.score}
                 </h1>
-                click per second average
+                clicks
               </div>
             </div>
           </div>
