@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   name: "",
   score: 0,
-  rank: "No ranking",
+  rank: "No Ranking",
 };
 
 const challengerSlice = createSlice({

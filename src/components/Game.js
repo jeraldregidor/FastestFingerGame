@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ranking from "./Ranking";
-import { addScore, setRank } from "../app/challengerSlice";
+import { addScore} from "../app/challengerSlice";
 import {
   displayReady,
   displayGetSet,
@@ -11,12 +11,12 @@ import {
   displayRank,
   setTimer,
 } from "../app/gameSlice";
-import { ClockIcon } from "./icons";
-import participants from "./Participants";
+import GameTimeUp from "./GameTimeUp";
+import GameResult from "./GameResult";
 
 const Game = () => {
   const dispatch = useDispatch();
-  const { score, rank } = useSelector((store) => store.challenger);
+  const { score } = useSelector((store) => store.challenger);
   const {
     isTimerReady,
     isTimerGetSet,
@@ -28,24 +28,23 @@ const Game = () => {
   } = useSelector((store) => store.game);
 
   useEffect(() => {
-    var seconds = 35; //35
+    var seconds = 10; //35/
     const interval = setInterval(() => {
       seconds--;
       dispatch(setTimer(seconds));
-      if (seconds >= 34) {
+      if (seconds >= 10) {
         //34
         dispatch(displayReady());
-      } else if (seconds >= 32) {
+      } else if (seconds >= 9) {
         //32
         dispatch(displayGetSet());
-      } else if (seconds >= 31) {
+      } else if (seconds >= 8) {
         //31
         dispatch(displayGo());
-      } else if (seconds >= 30) {
+      } else if (seconds >= 7) {
         //30
         dispatch(displayGaming());
       } else if (seconds <= 0) {
-        console.log("Timer must Stop");
         dispatch(displayFinish());
         clearInterval(interval);
         setTimeout(() => {
@@ -53,9 +52,8 @@ const Game = () => {
         }, 3000);
       }
     }, 1000);
-  }, []);
+  }, [dispatch]);
 
-  console.log(timerValue);
 
   const gameOngoing = () => {
     return (
@@ -82,45 +80,6 @@ const Game = () => {
     );
   };
 
-  const gameTimeUp = () => {
-    const beatenParticipants = participants.filter(
-      (participant) => participant.score < score
-    );
-    const ranking = 10 - beatenParticipants.length + 1;
-    dispatch(setRank(ranking));
-
-    return (
-      <div>
-        <div className="flex flex-col items-center justify-center ">
-          <ClockIcon />
-          <div className="text-3xl font-extrabold">Time is up!!!</div>
-        </div>
-      </div>
-    );
-  };
-
-  const gamerRank = () => {
-    return (
-      <div className=" w-full h-full grid grid-cols-3">
-        <div className=" col-start-1 row-start-2 flex flex-col items-center justify-center">
-          <div className="text-8xl font-extrabold">{score}</div>
-          <div className="text-md font-extrabold">CLICKS FOR 30 SECONDS</div>
-        </div>
-        <div className=" col-start-2 row-start-1 flex flex-col items-center justify-center">
-          <div className="text-9xl font-extrabold">{rank}</div>
-          <div className="text-md font-extrabold">RANKING</div>
-        </div>
-        <div className=" col-start-3 row-start-2 flex flex-col items-center justify-center">
-          <div className="text-8xl font-extrabold">
-            {(score / 30).toFixed(2)}
-          </div>
-          <div className="text-md font-extrabold">AVERAGE CPS</div>
-        </div>
-      </div>
-    );
-  };
-
-  //   setTimeout(() => {}, 3000);
 
   return (
     <div className="grid grid-cols-[1fr_2fr] gap-4 h-screen">
@@ -138,8 +97,9 @@ const Game = () => {
           <div className="text-8xl font-extrabold text-green-600">Go!!!!</div>
         )}
         {isOngoing && gameOngoing()}
-        {isDone && gameTimeUp()}
-        {isDisplayRank && gamerRank()}
+        
+        {isDone && <GameTimeUp/>}
+        {isDisplayRank && <GameResult/>}
       </section>
     </div>
   );
