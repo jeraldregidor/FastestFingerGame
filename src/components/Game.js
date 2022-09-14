@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ranking from "./Ranking";
-import { addScore} from "../app/challengerSlice";
+import { addScore } from "../app/challengerSlice";
 import {
   displayReady,
   displayGetSet,
@@ -10,6 +10,7 @@ import {
   displayFinish,
   displayRank,
   setTimer,
+  decreaseTimer,
 } from "../app/gameSlice";
 import GameTimeUp from "./GameTimeUp";
 import GameResult from "./GameResult";
@@ -28,32 +29,45 @@ const Game = () => {
   } = useSelector((store) => store.game);
 
   useEffect(() => {
-    var seconds = 35; //35/
     const interval = setInterval(() => {
-      seconds--;
-      dispatch(setTimer(seconds));
-      if (seconds >= 34) {
-        //34
-        dispatch(displayReady());
-      } else if (seconds >= 32) {
-        //32
-        dispatch(displayGetSet());
-      } else if (seconds >= 31) {
-        //31
-        dispatch(displayGo());
-      } else if (seconds >= 30  ) {
-        //30
-        dispatch(displayGaming());
-      } else if (seconds <= 0) {
-        dispatch(displayFinish());
+      dispatch(decreaseTimer());
+      if (timerValue < 1) {
         clearInterval(interval);
-        setTimeout(() => {
-          dispatch(displayRank());
-        }, 3000);
       }
     }, 1000);
-  }, [dispatch]);
+  }, []);
 
+  console.log(timerValue)
+
+
+  if (timerValue >= 34) {
+    //34
+    setTimeout(() => {
+      dispatch(displayReady());
+    }, 200);
+  } else if (timerValue >= 32) {
+    //32
+    setTimeout(() => {
+      dispatch(displayGetSet());
+    }, 200);
+  } else if (timerValue >= 31) {
+    //31
+    setTimeout(() => {
+      dispatch(displayGo());
+    }, 200);
+  } else if (timerValue >= 30) {
+    //30
+    setTimeout(() => {
+      dispatch(displayGaming());
+    }, 200);
+  } else if (timerValue === 0) {
+    setTimeout(() => {
+      dispatch(displayFinish());
+      setTimeout(() => {
+        dispatch(displayRank());
+      }, 3000);
+    }, 200);
+  }
 
   const gameOngoing = () => {
     return (
@@ -80,7 +94,6 @@ const Game = () => {
     );
   };
 
-
   return (
     <div className="grid grid-cols-[1fr_2fr] gap-4 h-screen">
       <section>
@@ -88,18 +101,24 @@ const Game = () => {
       </section>
       <section className="flex flex-col items-center justify-center self-center h-screen ">
         {isTimerReady && (
-          <div className="text-8xl font-extrabold opacity-80">Ready</div>
+          <div className="text-8xl font-extrabold opacity-80 animate-bounce">
+            Ready
+          </div>
         )}
         {isTimerGetSet && (
-          <div className="text-8xl font-extrabold">Get Set</div>
+          <div className="text-8xl font-extrabold animate-bounce">Get Set</div>
         )}
         {isTimerGo && (
-          <div className="text-8xl font-extrabold text-green-600">Go!!!!</div>
+          <div className="text-8xl font-extrabold text-green-600 animate-bounce">
+            Go!!!!
+          </div>
         )}
         {isOngoing && gameOngoing()}
-        
-        {isDone && <GameTimeUp/>}
-        {isDisplayRank && <GameResult/>}
+
+        {isDone && <GameTimeUp />}
+        {isDisplayRank && <GameResult />}
+
+        {/* <GameResult/> */}
       </section>
     </div>
   );

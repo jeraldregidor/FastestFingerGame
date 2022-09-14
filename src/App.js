@@ -14,6 +14,7 @@ function App() {
       {isOpenGame && <Game />}
       {isOpenModal && <Modal />}
       {isOpenWelcome && <Welcome />}
+      {/* <Game />   */}
     </main>
   );
 }

@@ -33,8 +33,14 @@ const challengerSlice = createSlice({
     addScore: (state) => {
       state.score++;
     },
-    setRank: (state, action) => {
-      // const info = {state.name, state.score,}
+    resetAllData: (state) => {
+      state.score=0;
+      state.ranking = "No Ranking"
+      state.name=""
+    },
+    resetRankScore: (state) => {
+      state.ranking = "No Ranking"
+      state.score=0;
     },
   },
   extraReducers: {
@@ -50,6 +56,6 @@ const challengerSlice = createSlice({
   },
 });
 
-export const { setName, addScore, setRank } = challengerSlice.actions;
+export const { setName, addScore, resetAllData, resetRankScore } = challengerSlice.actions;
 
 export default challengerSlice.reducer;

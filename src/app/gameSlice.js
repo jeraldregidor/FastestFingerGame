@@ -8,7 +8,7 @@ const initialState = {
   isOngoing: false,
   isDone: false,
   isDisplayRank: false,
-  timerValue: 30,
+  timerValue: 35,
 };
 
 const gameSlice = createSlice({
@@ -72,6 +72,9 @@ const gameSlice = createSlice({
     setTimer: (state, action) => {
       state.timerValue = action.payload;
     },
+    decreaseTimer: (state) => {
+        state.timerValue--;
+    },
   },
 });
 
@@ -85,6 +88,7 @@ export const {
   displayFinish,
   displayRank,
   setTimer,
+  decreaseTimer,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

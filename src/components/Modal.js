@@ -3,7 +3,7 @@ import { closeModal } from "../app/modalSlice";
 import { setName } from "../app/challengerSlice";
 import { useDispatch } from "react-redux";
 import { closeWelcome } from "../app/welcomeSlice";
-import { openGame } from "../app/gameSlice";
+import { openGame, setTimer } from "../app/gameSlice";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const Modal = () => {
     dispatch(closeModal());
     dispatch(closeWelcome());
     dispatch(openGame())
+    dispatch(setTimer(35))
     
   };
 
