@@ -1,7 +1,14 @@
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getRankingDetails } from "../app/participantsSlice";
 
 const GameResult = () => {
-    const { score, rank } = useSelector((store) => store.challenger);
+  const { score, ranking } = useSelector((store) => store.challenger);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRankingDetails());
+  }, []);
+
   return (
     <div>
       {
@@ -11,7 +18,7 @@ const GameResult = () => {
             <div className="text-md font-extrabold">CLICKS FOR 30 SECONDS</div>
           </div>
           <div className=" col-start-2 row-start-1 flex flex-col items-center justify-center">
-            <div className="text-center text-9xl font-extrabold">{rank}</div>
+            <div className="text-center text-9xl font-extrabold">{ranking}</div>
             <div className="text-md font-extrabold">RANKING</div>
           </div>
           <div className=" col-start-3 row-start-2 flex flex-col items-center justify-center">

@@ -28,20 +28,20 @@ const Game = () => {
   } = useSelector((store) => store.game);
 
   useEffect(() => {
-    var seconds = 10; //35/
+    var seconds = 35; //35/
     const interval = setInterval(() => {
       seconds--;
       dispatch(setTimer(seconds));
-      if (seconds >= 10) {
+      if (seconds >= 34) {
         //34
         dispatch(displayReady());
-      } else if (seconds >= 9) {
+      } else if (seconds >= 32) {
         //32
         dispatch(displayGetSet());
-      } else if (seconds >= 8) {
+      } else if (seconds >= 31) {
         //31
         dispatch(displayGo());
-      } else if (seconds >= 7) {
+      } else if (seconds >= 30  ) {
         //30
         dispatch(displayGaming());
       } else if (seconds <= 0) {
