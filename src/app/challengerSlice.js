@@ -11,7 +11,6 @@ export const getChallengerRanking = createAsyncThunk(
         computeRankUrl,
         thunkAPI.getState().challenger
       );
-      console.log(resp.data);
       return resp.data;
     } catch (error) {}
   }

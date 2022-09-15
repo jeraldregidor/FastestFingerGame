@@ -9,6 +9,7 @@ const initialState = {
   isDone: false,
   isDisplayRank: false,
   timerValue: 35,
+  isWithAbnormality: false,   
 };
 
 const gameSlice = createSlice({
@@ -73,7 +74,13 @@ const gameSlice = createSlice({
       state.timerValue = action.payload;
     },
     decreaseTimer: (state) => {
-        state.timerValue--;
+      state.timerValue--;
+    },
+    setAbnormalityOn: (state) => {
+      state.isWithAbnormality = true;
+    },
+    setAbnormalityOff: (state) => {
+      state.isWithAbnormality = false;
     },
   },
 });
@@ -89,6 +96,8 @@ export const {
   displayRank,
   setTimer,
   decreaseTimer,
+  setAbnormalityOn,
+  setAbnormalityOff,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

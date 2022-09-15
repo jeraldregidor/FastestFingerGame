@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const welcomeSlice = createSlice({
   name: "welcome",
-  initialState: { isOpenWelcome: true },
+  initialState: { isOpenWelcome: true},
   reducers: {
     openWelcome: (state) => {
       state.isOpenWelcome = true;

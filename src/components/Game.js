@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ranking from "./Ranking";
-import { addScore } from "../app/challengerSlice";
+import { addScore, resetAllData } from "../app/challengerSlice";
 import {
   displayReady,
   displayGetSet,
@@ -9,11 +9,12 @@ import {
   displayGaming,
   displayFinish,
   displayRank,
-  setTimer,
   decreaseTimer,
+  setAbnormalityOn,
 } from "../app/gameSlice";
 import GameTimeUp from "./GameTimeUp";
 import GameResult from "./GameResult";
+import WithAbnormality from "./WithAbnormality";
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -26,19 +27,24 @@ const Game = () => {
     isDone,
     isDisplayRank,
     timerValue,
+    isWithAbnormality,
   } = useSelector((store) => store.game);
 
+  /* eslint-disable */
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(decreaseTimer());
-      if (timerValue < 1) {
-        clearInterval(interval);
-      }
-    }, 1000);
-  }, []);
+    var seconds = 0;
+    if (timerValue === 35) {
+      const interval = setInterval(() => {
+        dispatch(decreaseTimer());
+        seconds++;
+        if (seconds === 35) {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+  }, [timerValue]);
 
-  console.log(timerValue)
-
+  console.log(timerValue);
 
   if (timerValue >= 34) {
     //34
@@ -60,13 +66,24 @@ const Game = () => {
     setTimeout(() => {
       dispatch(displayGaming());
     }, 200);
-  } else if (timerValue === 0) {
+  } else if (timerValue === 0 && !isDisplayRank && !isWithAbnormality) {
     setTimeout(() => {
       dispatch(displayFinish());
       setTimeout(() => {
         dispatch(displayRank());
       }, 3000);
     }, 200);
+  }
+
+  if ((score / (30 - timerValue)) > 20) {             //      (score / (30 - timerValue)).toFixed(2) > 20
+    if(timerValue <= 29){
+      dispatch(resetAllData());
+      dispatch(setAbnormalityOn());
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 5000);
+    }
+
   }
 
   const gameOngoing = () => {
@@ -95,31 +112,38 @@ const Game = () => {
   };
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] gap-4 h-screen">
-      <section>
-        <Ranking />
-      </section>
-      <section className="flex flex-col items-center justify-center self-center h-screen ">
-        {isTimerReady && (
-          <div className="text-8xl font-extrabold opacity-80 animate-bounce">
-            Ready
-          </div>
-        )}
-        {isTimerGetSet && (
-          <div className="text-8xl font-extrabold animate-bounce">Get Set</div>
-        )}
-        {isTimerGo && (
-          <div className="text-8xl font-extrabold text-green-600 animate-bounce">
-            Go!!!!
-          </div>
-        )}
-        {isOngoing && gameOngoing()}
+    <div>
+      {isWithAbnormality && <WithAbnormality/>}
+      {!isWithAbnormality && (
+        <div className="grid grid-cols-[1fr_2fr] gap-4 h-screen">
+          <section>
+            <Ranking />
+          </section>
+          <section className="flex flex-col items-center justify-center self-center h-screen ">
+            {isTimerReady && (
+              <div className="text-8xl font-extrabold opacity-80 animate-bounce">
+                Ready
+              </div>
+            )}
+            {isTimerGetSet && (
+              <div className="text-8xl font-extrabold animate-bounce">
+                Get Set
+              </div>
+            )}
+            {isTimerGo && (
+              <div className="text-8xl font-extrabold text-green-600 animate-bounce">
+                Go!!!!
+              </div>
+            )}
+            {isOngoing && gameOngoing()}
 
-        {isDone && <GameTimeUp />}
-        {isDisplayRank && <GameResult />}
+            {isDone && <GameTimeUp />}
+            {isDisplayRank && <GameResult />}
 
-        {/* <GameResult/> */}
-      </section>
+            {/* <GameResult/> */}
+          </section>
+        </div>
+      )}
     </div>
   );
 };

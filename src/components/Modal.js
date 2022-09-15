@@ -13,13 +13,29 @@ const Modal = () => {
     setChallengerName(event.target.value);
   };
 
-  const handleStartButton = (event) => {
-    dispatch(setName(cName));
+  
+
+  if(cName=== ""  || cName.length > 20 || cName.length<1){
+      var ringOfInputBox="ring-4 ring-inset ring-red-500 w-1/2 h-10 text-center";
+  }
+  else{
+       ringOfInputBox= "ring-2 ring-inset ring-black w-1/2 h-10 text-center";
+  }
+
+  const handleStartButton = () => {
+    if(cName=== ""  || cName.length > 20 || cName.length<1){
+       ringOfInputBox="ring-2 ring-inset ring-red-500 w-1/2 h-10 text-center";
+      setTimeout(() => {
+         ringOfInputBox="ring-2 ring-inset ring-red-500 w-1/2 h-10 text-center";
+      }, 3000);
+    }
+    else{
+    dispatch(setName(cName.toUpperCase));
     dispatch(closeModal());
     dispatch(closeWelcome());
     dispatch(openGame())
     dispatch(setTimer(35))
-    
+    }
   };
 
   return (
@@ -29,8 +45,9 @@ const Modal = () => {
         <li className="mb-5 text-xl">Click the button as fast as you can </li>
         <h1 className="font-bold mb-1">Enter your name:</h1>
         <input
-          className="ring-2 ring-inset ring-black w-1/2 h-10 text-center"
+          className={ringOfInputBox}
           type="text"
+          required="required"
           placeholder="Clicker Name"
           value={cName}
           onChange={handleChange}

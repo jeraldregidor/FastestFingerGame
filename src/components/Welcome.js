@@ -12,11 +12,11 @@ const Welcome = () => {
     </section>
     <section className="flex-col self-center">
       <div className="font-extrabold text-[70px] text-center">
-        The Fastest
+        The Fastest Finger
       </div>
       <div className="text-center text-xl text-slate-600">
         Be on top and prove them no one can beat the lightning speed of your
-        FASTEST
+        FASTEST FINGER
       </div>
       <div className="flex justify-center">
         <button

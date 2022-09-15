@@ -5,17 +5,19 @@ const gettingParticipantsUrl = "http://192.168.2.208:8081/api/getParticipants";
 
 export const getRankingDetails = createAsyncThunk(
   "participant/getRankingDetails",
-  async () => {
+  async (name, thunkAPI) => {
     try {
       const resp = await axios(gettingParticipantsUrl);
       return resp.data;
-    } catch (error) {}
+    } catch (error) { thunkAPI.getState().participants.isNoConnection=true;  }
+
   }
 );
 
 const initialState = {
   participants: [],
   isLoading: true,
+  isNoConnection: false,
 };
 
 const participantsSlice = createSlice({
@@ -36,9 +38,11 @@ const participantsSlice = createSlice({
     [getRankingDetails.fulfilled]: (state,action) => {
       state.participants = action.payload
       state.isLoading = false;
+      state.isNoConnection = false;
     },
     [getRankingDetails.rejected]: (state) => {
       state.isLoading = true;
+      state.isNoConnection = true;
     },
   },
 });
