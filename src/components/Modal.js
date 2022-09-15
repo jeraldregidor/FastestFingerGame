@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { closeModal } from "../app/modalSlice";
 import { setName } from "../app/challengerSlice";
 import { useDispatch } from "react-redux";
-import { closeWelcome } from "../app/welcomeSlice";
+import { closeWelcome, } from "../app/welcomeSlice";
 import { openGame, setTimer } from "../app/gameSlice";
 
 const Modal = () => {
@@ -39,7 +39,7 @@ const Modal = () => {
   };
 
   return (
-    <div className=" flex justify-center h-screen w-screen absolute bg-slate-200 opacity-95 z-10">
+    <div className=" flex justify-center h-screen w-screen absolute bg-slate-200 opacity-95 z-10 select-none transition-all duration-1000">
       <div className="bg-slate-300 flex flex-col w-1/2 h-full justify-center items-center">
         <h1 className="font-bold text-xl">Instruction:</h1>
         <li className="mb-5 text-xl">Click the button as fast as you can </li>

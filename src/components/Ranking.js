@@ -35,7 +35,7 @@ const Ranking = () => {
   });
 
   return (
-    <div>
+    <div className="select-none">
       {isLoading && <RankingLoading/>}
       {!isLoading && (
         <div>

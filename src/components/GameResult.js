@@ -1,41 +1,44 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetAllData, resetRankScore, setName } from "../app/challengerSlice";
-import { closeGame,openGame, setTimer } from "../app/gameSlice";
+import { resetAllData, resetRankScore } from "../app/challengerSlice";
+import { closeGame, openGame, setTimer } from "../app/gameSlice";
 import { getRankingDetails } from "../app/participantsSlice";
 import { openWelcome } from "../app/welcomeSlice";
-
-
 
 const GameResult = () => {
   const { score, ranking } = useSelector((store) => store.challenger);
   const dispatch = useDispatch();
 
-   /* eslint-disable */
+  /* eslint-disable */
   useEffect(() => {
     dispatch(getRankingDetails());
   }, []);
 
   const handleRestartClick = () => {
     dispatch(resetRankScore());
-    dispatch(closeGame())
-    dispatch(openGame())
+    dispatch(closeGame());
+    dispatch(openGame());
     dispatch(setTimer(35));
-
   };
 
   const handleExitClick = () => {
     dispatch(resetAllData());
     dispatch(setTimer(35));
-    dispatch(closeGame())
-    dispatch(openWelcome())
-
+    dispatch(closeGame());
+    dispatch(openWelcome());
   };
 
   return (
     <div>
       {
-        <div className=" w-full h-screen grid grid-cols-3">
+        <div className=" w-full h-screen grid grid-cols-3 select-none">
+          <audio
+            src={
+              process.env.PUBLIC_URL +
+              "/sounds/Result.wav"
+            }
+            autoPlay
+          />
           <div className=" col-start-1 row-start-2 flex flex-col items-center justify-center">
             <div className="text-8xl font-extrabold">{score}</div>
             <div className="text-md font-extrabold">CLICKS FOR 30 SECONDS</div>

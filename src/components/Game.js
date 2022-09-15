@@ -75,20 +75,21 @@ const Game = () => {
     }, 200);
   }
 
-  if ((score / (30 - timerValue)) > 20) {             //      (score / (30 - timerValue)).toFixed(2) > 20
-    if(timerValue <= 29){
+  if (score / (30 - timerValue) > 20) {
+    //      (score / (30 - timerValue)).toFixed(2) > 20
+    if (timerValue <= 29) {
       dispatch(resetAllData());
       dispatch(setAbnormalityOn());
       setTimeout(() => {
         window.location.reload(false);
       }, 5000);
     }
-
   }
 
   const gameOngoing = () => {
     return (
       <div className="w-full flex flex-col h-full  justify-center items-center">
+        <audio src={process.env.PUBLIC_URL + "/sounds/Start.wav"} autoPlay />
         <div className="mb-20 text-2xl">
           Average click per second: {(score / (30 - timerValue)).toFixed(2)}
         </div>
@@ -112,8 +113,8 @@ const Game = () => {
   };
 
   return (
-    <div>
-      {isWithAbnormality && <WithAbnormality/>}
+    <div className>
+      {isWithAbnormality && <WithAbnormality />}
       {!isWithAbnormality && (
         <div className="grid grid-cols-[1fr_2fr] gap-4 h-screen">
           <section>
